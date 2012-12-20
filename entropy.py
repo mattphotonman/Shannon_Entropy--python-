@@ -145,7 +145,13 @@ class StringStat:
         else:
             return None
 
-    
+    def ReturnEntropy(self):
+        #Editing here, start by writing the doc string (and taking away "pass")
+        pass
+
+    def ReturnEntropyDensity(self):
+        #Editing here, start by writing the doc string (and taking away "pass")
+        pass
 
 #-----------------------
 #Functions
