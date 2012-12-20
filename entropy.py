@@ -3,7 +3,7 @@
 Calculates the Shannon entropy (density) of a text file.
 The Shannon entropy is given by
 
-H=\sum(-p_i log(p_i) , i)
+H=-\sum(p_i log(p_i) , i)
 
 where i indexes possible states/configurations, and p_i
 is the probability/frequency of that configuration.
@@ -146,12 +146,32 @@ class StringStat:
             return None
 
     def ReturnEntropy(self):
-        #Editing here, start by writing the doc string (and taking away "pass")
-        pass
+        """Returns the Shannon entropy based on the frequencies
+        of different strings recorded in the self.data dictionary."""
+
+        #The quantity we wish to calculate is
+        #
+        #H=-\sum(p_i log(p_i) , i) = -\sum(n_i/N log(n_i/N), i)
+        #
+        #where i indexes the different strings, i.e. the unique keys
+        #in the self.data dictionary.  Here p_i is the probability
+        #of string i, estimated by p_i=n_i/N where n_i the frequency
+        #of occurrence of string i, and N=\sum(n_i, i) is the total
+        #number of strings examined.  n_i is the value of the key
+        #in the self.data dictionary, i.e. n_i=self.data[string_i].
+
+        entropy=0.0
+        N=float(len(self.data))
+        for nint in self.data.itervalues():
+            ni=float(nint)
+            entropy+=-ni/N*log(ni/N)
+        entropy/=log(2.0)  #convert to base 2 logarithm
+        return entropy
 
     def ReturnEntropyDensity(self):
-        #Editing here, start by writing the doc string (and taking away "pass")
-        pass
+        """Returns entropy density = H/n, where n=self.n is the length
+        of strings being examined by the current object."""
+        return self.ReturnEntropy()/self.n
 
 #-----------------------
 #Functions
