@@ -52,7 +52,7 @@ class Queue:
             print >> sys.stderr, "Error:  Queue became too large."
             exit()
 
-
+    def __repr__(self): return repr(self.data)
 
 #-----------------------
 #Main body of the code
