@@ -21,6 +21,7 @@ from math import *
 from UserList import UserList
 import copy
 import sys
+import string
 
 #-----------------------
 #Global variables
@@ -69,10 +70,10 @@ class StringStat:
         self.queue=Queue(n)
         self.data={}
 
-    def AddString(self,string):
-        """Takes in a string called string, and adds each character
+    def AddString(self,strng):
+        """Takes in a string called strng, and adds each character
         of the string using AddChar."""
-        if type(string)==str:
+        if type(strng)==str:
             for char in str:
                 self.AddChar(char)
         else:
@@ -103,19 +104,48 @@ class StringStat:
             return newchar
 
         #Convert strlist from a list of chars into a string
-        string=""
+        strng=""
         for ch in strlist:
             if not(ischar(ch)):
                 print >> sys.stderr, "Error:  Non char got into StringStat.queue."
                 exit()
-            string+=ch
+            strng+=ch
 
         #Now can add/increment this string in self.data
-        self.Incr(string)
+        self.Incr(strng)
         return newchar
     
+    def Incr(self,key):
+        """Adds key into self.data with value 1 if key isn't
+        in there already.  If it is in there, it increments
+        the value by 1."""
+        if key in self.data:
+            self.data[key]+=1
+        else:
+            self.data[key]=1
+
+    def ParseChar(self,char):
+        """This function decides if char should is an
+        admissible character.  If not it returns None,
+        if so it returns the character, but possibly
+        modifies it as well.
+
+        This function should be rewritten depending
+        on the type of characters for which you want
+        to gather statistics.  In this version, it
+        accepts only the 26 letters and turns capitals
+        into small letters."""
+        if not(ischar(char)):
+            print >> sys.stderr, "Error:  Tried to parse non-string or string with more than one character using StringStat.ParseChar."
+            exit()
+
+        newchar=string.lower(char)
+        if newchar in string.lowercase:
+            return newchar
+        else:
+            return None
+
     
-        
 
 #-----------------------
 #Functions
