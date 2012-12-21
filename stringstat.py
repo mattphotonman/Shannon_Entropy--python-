@@ -59,7 +59,7 @@ class StringStat:
         """Takes in a string called strng, and adds each character
         of the string using AddChar."""
         if type(strng)==str:
-            for char in str:
+            for char in strng:
                 self.AddChar(char)
         else:
             print >> sys.stderr, "Error:  Tried to add non-string using StringStat.AddString."
@@ -144,12 +144,23 @@ class StringStat:
         #of occurrence of string i, and N=\sum(n_i, i) is the total
         #number of strings examined.  n_i is the value of the key
         #in the self.data dictionary, i.e. n_i=self.data[string_i].
+        #
+        #We can simplify as follows:
+        #H=-1/N * [\sum(n_i*log(n_i),i) - \sum(n_i*log(N),i)]
+        # =-1/N * \sum(n_i*log(n_i),i) + log(N)
+        #where in the last line we used \sum(n_i,i)=N.  In this form
+        #we just need to calculate N=\sum(n_i,i) and
+        #\sum(n_i*log(n_i),i) separately, then combine them to find H.
+        #This way we only need to loop over the values of self.data
+        #once.
 
-        entropy=0.0
-        N=float(len(self.data))
-        for nint in self.data.itervalues():
-            ni=float(nint)
-            entropy+=-ni/N*log(ni/N)
+        logsum=0.0
+        N=0
+        for ni in self.data.itervalues():
+            N+=ni
+            logsum+=float(ni)*log(float(ni))
+        N=float(N)
+        entropy=-1.0/N*logsum+log(N)
         entropy/=log(2.0)  #convert to base 2 logarithm
         return entropy
 
