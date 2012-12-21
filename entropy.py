@@ -20,6 +20,7 @@ from stringstat import *
 #Parse input
 if len(sys.argv)<2 or len(sys.argv)>3:
     print >> sys.stderr, "Usage:  entropy.py filename [nmax=5]"
+    exit()
 
 filename=sys.argv[1]
 if len(sys.argv)==2:
