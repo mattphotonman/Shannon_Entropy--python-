@@ -51,4 +51,4 @@ for stat in stats:
     N=stat.ReturnN()
     ent_saturated=log(float(N))/log(2.0)
     #ent_saturated is the value the entropy would take if each string read were unique.
-    print stat.n, "\t", N, "\t", ent, , "\t", ent_saturated, "\t", ent/float(stat.n), "\t", ent_saturated/float(stat.n)
+    print stat.n, "\t", N, "\t", ent, "\t", ent_saturated, "\t", ent/float(stat.n), "\t", ent_saturated/float(stat.n)
