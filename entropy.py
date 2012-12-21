@@ -24,11 +24,6 @@ import sys
 import string
 
 #-----------------------
-#Global variables
-#-----------------------
-
-
-#-----------------------
 #Classes
 #-----------------------
 
@@ -178,6 +173,7 @@ class StringStat:
 #-----------------------
 
 def ischar(x):
+    "Tests if argument is a string of length 1."
     if type(x)==str and len(x)==1:
         return True
     else:
@@ -187,3 +183,31 @@ def ischar(x):
 #Main body of the code
 #-----------------------
 
+#Parse input
+if len(sys.argv)<2 or len(sys.argv)>3:
+    print >> sys.stderr, "Usage:  entropy.py filename [nmax=5]"
+
+filename=sys.argv[1]
+if len(sys.argv)==2:
+    nmax=5
+else:
+    nmax=int(sys.argv[2])
+
+#Create StringStat objects with n=1,2,...,nmax
+stats=[]
+for i in range(nmax):
+    stats.append(StringStat(i+1))
+
+#Main loop of the program.
+#Read the lines of the file and feed them to
+#each of the StringStat objects in stats using
+#StringStat.AddString.
+f=open(filename,'r')
+for line in f:
+    for i in range(nmax):
+        stats[i].AddString(line)
+
+#Have all the data now, output the results.
+print "n\tEntropy Density"
+for i in range(nmax):
+    print stats[i].n, "\t", stats[i].ReturnEntropyDensity()
