@@ -45,7 +45,10 @@ for line in f:
         stat.AddString(line)
 
 #Have all the data now, output the results.
-print "n\tEntropy\tEntropy Density"
+print "n\tNstrings\tEntropy\tSaturation Value\tEntropy Density\tSaturation Value"
 for stat in stats:
     ent=stat.ReturnEntropy()
-    print stat.n, "\t", ent, "\t", ent/float(stat.n)
+    N=stat.ReturnN()
+    ent_saturated=log(float(N))/log(2.0)
+    #ent_saturated is the value the entropy would take if each string read were unique.
+    print stat.n, "\t", N, "\t", ent, , "\t", ent_saturated, "\t", ent/float(stat.n), "\t", ent_saturated/float(stat.n)

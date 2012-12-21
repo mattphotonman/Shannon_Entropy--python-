@@ -169,6 +169,13 @@ class StringStat:
         of strings being examined by the current object."""
         return self.ReturnEntropy()/float(self.n)
 
+    def ReturnN(self):
+        "Returns the total number of strings of length n read."
+        N=0
+        for ni in self.data.itervalues():
+            N+=ni
+        return N
+
 #-----------------------
 #Functions
 #-----------------------
