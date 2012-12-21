@@ -45,6 +45,7 @@ for line in f:
         stat.AddString(line)
 
 #Have all the data now, output the results.
-print "n\tEntropy Density"
+print "n\tEntropy\tEntropy Density"
 for stat in stats:
-    print stat.n, "\t", stat.ReturnEntropyDensity()
+    ent=stat.ReturnEntropy()
+    print stat.n, "\t", ent, "\t", ent/float(stat.n)

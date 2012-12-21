@@ -167,7 +167,7 @@ class StringStat:
     def ReturnEntropyDensity(self):
         """Returns entropy density = H/n, where n=self.n is the length
         of strings being examined by the current object."""
-        return self.ReturnEntropy()/self.n
+        return self.ReturnEntropy()/float(self.n)
 
 #-----------------------
 #Functions
